@@ -1,6 +1,25 @@
 <?php
   session_start();
 
+$ip = array();
+$ip[] = 'xxx';
+$ip[] = 'xxxx';
+$ip[] = 'xxxx6';
+$ip[] = 'xxxx8';
+
+echo testIP($ip);
+//echo $_SERVER['HTTP_X_FORWARDED_FOR'];
+function testIP($ip){
+    for($i=0, $cnt=count($ip); $i<$cnt; $i++) {
+                                $ipregex = preg_replace("/\./", "\.", $ip[$i]);
+                                $ipregex = preg_replace("/\*/", ".*", $ipregex);
+                                if(preg_match('/^'.$ipregex.'/', $_SERVER['HTTP_X_FORWARDED_FOR'])) //REMOTE_ADDR might be the way to go - h_x_f_f is best used when serving behind proxy
+                                                return $uid . ':' . $pwd;
+    }
+    return "nomatch";
+}
+
+
   if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false){
   	header("Location: index.php");
   }
