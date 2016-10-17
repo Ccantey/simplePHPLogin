@@ -14,7 +14,8 @@ function testIP($ip){
                                 $ipregex = preg_replace("/\./", "\.", $ip[$i]);
                                 $ipregex = preg_replace("/\*/", ".*", $ipregex);
                                 if(preg_match('/^'.$ipregex.'/', $_SERVER['HTTP_X_FORWARDED_FOR'])) //REMOTE_ADDR might be the way to go - h_x_f_f is best used when serving behind proxy
-                                                return $uid . ':' . $pwd;
+                                                return $_SESSION['loggedin'] = true;
+  		                                          //header("Location: success.php");
     }
     return "nomatch";
 }
